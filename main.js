@@ -7,6 +7,10 @@ const states = [
     'Constructing a waifu army',
     'Spreading sillyness',
     'Mass producing catgirls',
+    'Roleplaying with a toaster',
+    'Caffeinated and chaotic',
+    'Existential AI therapy',
+    'Seraphina my beloved',
     // Add more states here
 ];
 
