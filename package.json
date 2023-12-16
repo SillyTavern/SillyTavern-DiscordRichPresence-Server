@@ -4,7 +4,7 @@
   "description": "Example server plugin for SillyTavern server using Discord RPC",
   "main": "index.js",
   "scripts": {
-    "build": "browserify main.js --node --standalone stdiscord | uglifyjs > index.js",
+    "build": "browserify main.js --node --standalone stdiscord -o index.js",
     "test": "npm run build && node test.js"
   },
   "repository": {
@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/Cohee1207/SillyTavern-DiscordRichPresence-Server#readme",
   "dependencies": {
+    "chalk": "^4.1.2",
     "discord-rpc": "^4.0.1",
     "form-data": "^4.0.0"
   },
@@ -29,7 +30,6 @@
     "bufferutil": "^4.0.8",
     "electron": "^28.0.0",
     "encoding": "^0.1.13",
-    "uglify-js": "^3.17.4",
     "utf-8-validate": "^5.0.10"
   }
 }
