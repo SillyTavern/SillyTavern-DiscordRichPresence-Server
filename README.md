@@ -1,5 +1,5 @@
 # SillyTavern-DiscordRichPresence-Server
-Example server plugin for SillyTavern server using Discord RPC.
+Example plugin for SillyTavern server using Discord RPC.
 
 ## Prerequisites
 
@@ -10,7 +10,7 @@ Example server plugin for SillyTavern server using Discord RPC.
 
 ## How to install?
 
-1. **Before you begin, make sure you set a config `enableServerPlugins` to `true` in config.yaml file of SillyTavern.**
+1. **Before you begin, make sure you set a config `enableServerPlugins` to `true` in the config.yaml file of SillyTavern.**
 
 2. Open a terminal in your SillyTavern directory, then run the following:
 
@@ -19,7 +19,7 @@ cd plugins
 git clone https://github.com/Cohee1207/SillyTavern-DiscordRichPresence-Server
 ```
 
-3. Restart SillyTavern server.
+3. Restart the SillyTavern server.
 
 ## How to build yourself?
 
