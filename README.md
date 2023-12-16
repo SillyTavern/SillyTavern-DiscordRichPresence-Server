@@ -25,7 +25,14 @@ git clone https://github.com/Cohee1207/SillyTavern-DiscordRichPresence-Server
 
 *Not needed unless you want to make changes or contribute!*
 
-Clone this repository and run the following: `npm run build`. This will create a plugin file with everything needed bundled.
+Clone this repository and run the following:
+
+```
+npm install
+npm run build
+```
+
+This will create a plugin file with everything needed bundled.
 
 ## License
 
