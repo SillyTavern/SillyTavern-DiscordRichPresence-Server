@@ -38,7 +38,7 @@ async function init(app) {
             setActivity(state);
             res.status(200).send('OK');
         } else {
-            console.log(MODULE, 'Resetting Discord Rich Presence');
+            console.log(chalk.green(MODULE), 'Resetting Discord Rich Presence');
             setActivity();
             res.status(204).send();
         }
