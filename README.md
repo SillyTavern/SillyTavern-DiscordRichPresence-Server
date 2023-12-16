@@ -1,5 +1,6 @@
 # SillyTavern-DiscordRichPresence-Server
-Example plugin for SillyTavern server using Discord RPC.
+
+Plugin for the SillyTavern server using Discord RPC.
 
 ## Prerequisites
 
