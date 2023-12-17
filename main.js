@@ -1,7 +1,7 @@
 const MODULE = '[SillyTavern-DiscordRichPresence-Server]';
 const states = [
     'Constructing a waifu army',
-    'Spreading sillyness',
+    'Spreading the silliness',
     'Mass producing catgirls',
     'Roleplaying with a toaster',
     'Caffeinated and chaotic',
