@@ -41,7 +41,7 @@ npm install
 npm run build
 ```
 
-This will create a plugin file with everything needed bundled.
+This will create a plugin file (index.js) with everything needed bundled.
 
 ## License
 
