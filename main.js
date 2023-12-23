@@ -12,11 +12,23 @@ const states = [
 
 let client;
 
+async function exit() {
+    if (client) {
+        try {
+            const chalk = require('chalk');
+            console.log(chalk.green(MODULE), 'Shutting down Discord connection');
+            await client.destroy();
+        } catch {
+            // Ignore
+        }
+    }
+}
+
 /**
  * Initializes the plugin
- * @param {import('express').Express} app Express app
+ * @param {import('express').Router} router Express router
  */
-async function init(app) {
+async function init(router) {
     const rpc = require('discord-rpc');
     const fs = require('fs');
     const path = require('path');
@@ -26,7 +38,7 @@ async function init(app) {
     console.log(chalk.green(MODULE), 'Plugin loaded!');
     await connectToDiscord();
 
-    app && app.post('/api/discord/update', (req, res) => {
+    router && router.post('/update', (req, res) => {
         const name = req.query.name;
         if (name) {
             console.log(chalk.green(MODULE), 'Updating Discord Rich Presence to', chalk.blue(name));
@@ -61,37 +73,47 @@ async function init(app) {
     }
 
     async function setActivity(state) {
-        // Try to connect if not connected.
-        if (!connected) {
-            await connectToDiscord();
-        }
+        try {
+            // Try to connect if not connected.
+            if (!connected) {
+                await connectToDiscord();
+            }
 
-        // Still nothing? Avast!
-        if (!connected) {
-            console.error(chalk.yellow(MODULE), 'Not connected to a client');
-            return;
-        }
+            // Still nothing? Avast!
+            if (!connected) {
+                console.error(chalk.yellow(MODULE), 'Not connected to a client');
+                return;
+            }
 
-        state = state || states[Math.floor(Math.random() * states.length)];
-        client.setActivity({
-            details: config.Details,
-            state: state,
-            buttons: [
-                {
-                    label: config.Button1,
-                    url: config.Url1,
-                },
-                {
-                    label: config.Button2,
-                    url: config.Url2,
-                },
-            ],
-            largeImageKey: config.LargeImage,
-            largeImageText: config.LargeImageText,
-        }, process.pid);
+            state = state || states[Math.floor(Math.random() * states.length)];
+            await client.setActivity({
+                details: config.Details,
+                state: state,
+                buttons: [
+                    {
+                        label: config.Button1,
+                        url: config.Url1,
+                    },
+                    {
+                        label: config.Button2,
+                        url: config.Url2,
+                    },
+                ],
+                largeImageKey: config.LargeImage,
+                largeImageText: config.LargeImageText,
+            }, process.pid);
+        } catch {
+            console.error(chalk.yellow(MODULE), 'Failed to set activity');
+        }
     }
 }
 
 module.exports = {
     init,
+    exit,
+    info: {
+        id: 'discord',
+        name: 'Discord Rich Presence',
+        description: 'Set your rich presence in Discord to the "SillyTavern" app.',
+    },
 };

@@ -4,7 +4,7 @@
   "description": "Example server plugin for SillyTavern server using Discord RPC",
   "main": "index.js",
   "scripts": {
-    "build": "browserify main.js --node --standalone stdiscord -o index.js",
+    "build": "browserify main.js --node --standalone discord -o index.js",
     "test": "npm run build && node test.js"
   },
   "repository": {

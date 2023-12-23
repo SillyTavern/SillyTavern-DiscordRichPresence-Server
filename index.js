@@ -1,4 +1,4 @@
-(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.stdiscord = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.discord = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 (function (__dirname){(function (){
 const MODULE = '[SillyTavern-DiscordRichPresence-Server]';
 const states = [
@@ -14,11 +14,23 @@ const states = [
 
 let client;
 
+async function exit() {
+    if (client) {
+        try {
+            const chalk = require('chalk');
+            console.log(chalk.green(MODULE), 'Shutting down Discord connection');
+            await client.destroy();
+        } catch {
+            // Ignore
+        }
+    }
+}
+
 /**
  * Initializes the plugin
- * @param {import('express').Express} app Express app
+ * @param {import('express').Router} router Express router
  */
-async function init(app) {
+async function init(router) {
     const rpc = require('discord-rpc');
     const fs = require('fs');
     const path = require('path');
@@ -28,7 +40,7 @@ async function init(app) {
     console.log(chalk.green(MODULE), 'Plugin loaded!');
     await connectToDiscord();
 
-    app && app.post('/api/discord/update', (req, res) => {
+    router && router.post('/update', (req, res) => {
         const name = req.query.name;
         if (name) {
             console.log(chalk.green(MODULE), 'Updating Discord Rich Presence to', chalk.blue(name));
@@ -63,39 +75,49 @@ async function init(app) {
     }
 
     async function setActivity(state) {
-        // Try to connect if not connected.
-        if (!connected) {
-            await connectToDiscord();
-        }
+        try {
+            // Try to connect if not connected.
+            if (!connected) {
+                await connectToDiscord();
+            }
 
-        // Still nothing? Avast!
-        if (!connected) {
-            console.error(chalk.yellow(MODULE), 'Not connected to a client');
-            return;
-        }
+            // Still nothing? Avast!
+            if (!connected) {
+                console.error(chalk.yellow(MODULE), 'Not connected to a client');
+                return;
+            }
 
-        state = state || states[Math.floor(Math.random() * states.length)];
-        client.setActivity({
-            details: config.Details,
-            state: state,
-            buttons: [
-                {
-                    label: config.Button1,
-                    url: config.Url1,
-                },
-                {
-                    label: config.Button2,
-                    url: config.Url2,
-                },
-            ],
-            largeImageKey: config.LargeImage,
-            largeImageText: config.LargeImageText,
-        }, process.pid);
+            state = state || states[Math.floor(Math.random() * states.length)];
+            await client.setActivity({
+                details: config.Details,
+                state: state,
+                buttons: [
+                    {
+                        label: config.Button1,
+                        url: config.Url1,
+                    },
+                    {
+                        label: config.Button2,
+                        url: config.Url2,
+                    },
+                ],
+                largeImageKey: config.LargeImage,
+                largeImageText: config.LargeImageText,
+            }, process.pid);
+        } catch {
+            console.error(chalk.yellow(MODULE), 'Failed to set activity');
+        }
     }
 }
 
 module.exports = {
     init,
+    exit,
+    info: {
+        id: 'discord',
+        name: 'Discord Rich Presence',
+        description: 'Set your rich presence in Discord to the "SillyTavern" app.',
+    },
 };
 
 }).call(this)}).call(this,require("path").join(__dirname,"."))
