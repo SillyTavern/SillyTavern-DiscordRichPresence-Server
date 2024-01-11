@@ -17,7 +17,10 @@ async function exit() {
         try {
             const chalk = require('chalk');
             console.log(chalk.green(MODULE), 'Shutting down Discord connection');
-            await client.destroy();
+            await Promise.race([
+                client.destroy(),
+                new Promise(resolve => setTimeout(resolve, 1000)),
+            ]);
         } catch {
             // Ignore
         }
