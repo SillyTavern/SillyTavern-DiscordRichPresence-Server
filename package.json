@@ -1,35 +1,40 @@
 {
-  "name": "sillytavern-discordrichpresence-server",
-  "version": "1.0.0",
-  "description": "Example server plugin for SillyTavern server using Discord RPC",
-  "main": "index.js",
-  "scripts": {
-    "build": "browserify main.js --node --standalone discord -o index.js",
-    "test": "npm run build && node test.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Cohee1207/SillyTavern-DiscordRichPresence-Server.git"
-  },
-  "keywords": [
-    "sillytavern"
-  ],
-  "author": "Cohee1207",
-  "license": "AGPL-3.0",
-  "bugs": {
-    "url": "https://github.com/Cohee1207/SillyTavern-DiscordRichPresence-Server/issues"
-  },
-  "homepage": "https://github.com/Cohee1207/SillyTavern-DiscordRichPresence-Server#readme",
-  "dependencies": {
-    "chalk": "^4.1.2",
-    "discord-rpc": "^4.0.1",
-    "form-data": "^4.0.0"
-  },
-  "devDependencies": {
-    "browserify": "^17.0.0",
-    "bufferutil": "^4.0.8",
-    "electron": "^28.0.0",
-    "encoding": "^0.1.13",
-    "utf-8-validate": "^5.0.10"
-  }
+    "name": "sillytavern-discordrichpresence-server",
+    "version": "1.0.0",
+    "description": "Example server plugin for SillyTavern server using Discord RPC",
+    "main": "index.js",
+    "scripts": {
+        "build": "browserify main.js --node --standalone discord -o index.js",
+        "test": "npm run build && node test.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Cohee1207/SillyTavern-DiscordRichPresence-Server.git"
+    },
+    "keywords": [
+        "sillytavern"
+    ],
+    "author": "Cohee1207",
+    "license": "AGPL-3.0",
+    "bugs": {
+        "url": "https://github.com/Cohee1207/SillyTavern-DiscordRichPresence-Server/issues"
+    },
+    "homepage": "https://github.com/Cohee1207/SillyTavern-DiscordRichPresence-Server#readme",
+    "dependencies": {
+        "chalk": "^4.1.2",
+        "discord-rpc": "^4.0.1",
+        "form-data": "^4.0.0"
+    },
+    "overrides": {
+        "node-fetch": {
+            "whatwg-url": "^14.0.0"
+        }
+    },
+    "devDependencies": {
+        "browserify": "^17.0.0",
+        "bufferutil": "^4.0.8",
+        "electron": "^28.0.0",
+        "encoding": "^0.1.13",
+        "utf-8-validate": "^5.0.10"
+    }
 }
