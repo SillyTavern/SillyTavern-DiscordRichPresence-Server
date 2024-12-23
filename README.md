@@ -4,7 +4,7 @@ Plugin for the SillyTavern server using Discord RPC.
 
 ## What is this?
 
-Set your rich presence in Discord to the "SillyTavern" app. If you want to show your active chat character, you need to install a UI extension. Otherwise, a random [funny quote](https://github.com/SillyTavern/SillyTavern-DiscordRichPresence-Server/blob/main/main.js#L3) will be shown.
+Set your rich presence in Discord to the "SillyTavern" app. If you want to show your active chat character, you need to install a UI extension. Otherwise, a random [funny quote](https://github.com/SillyTavern/SillyTavern-DiscordRichPresence-Server/blob/main/src/index.ts#L7) will be shown.
 
 Link to companion extension:
 
@@ -25,7 +25,7 @@ Link to companion extension:
 
 2. Open a terminal in your SillyTavern directory, then run the following:
 
-```
+```sh
 cd plugins
 git clone https://github.com/SillyTavern/SillyTavern-DiscordRichPresence-Server
 ```
@@ -38,7 +38,7 @@ git clone https://github.com/SillyTavern/SillyTavern-DiscordRichPresence-Server
 
 Clone this repository and run the following:
 
-```
+```sh
 npm install
 npm run build
 ```

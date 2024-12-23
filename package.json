@@ -1,15 +1,16 @@
 {
     "name": "sillytavern-discordrichpresence-server",
     "version": "1.0.0",
-    "description": "Example server plugin for SillyTavern server using Discord RPC",
-    "main": "index.js",
+    "description": "Server plugin for SillyTavern using Discord RPC",
+    "main": "dist/index.js",
+    "type": "commonjs",
     "scripts": {
-        "build": "browserify main.js --node --standalone discord -o index.js",
-        "test": "npm run build && node test.js"
+        "build:dev": "webpack --mode development",
+        "build": "webpack --mode production"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/Cohee1207/SillyTavern-DiscordRichPresence-Server.git"
+        "url": "git+https://github.com/SillyTavern/SillyTavern-DiscordRichPresence-Server.git"
     },
     "keywords": [
         "sillytavern"
@@ -17,9 +18,9 @@
     "author": "Cohee1207",
     "license": "AGPL-3.0",
     "bugs": {
-        "url": "https://github.com/Cohee1207/SillyTavern-DiscordRichPresence-Server/issues"
+        "url": "https://github.com/SillyTavern/SillyTavern-DiscordRichPresence-Server/issues"
     },
-    "homepage": "https://github.com/Cohee1207/SillyTavern-DiscordRichPresence-Server#readme",
+    "homepage": "https://github.com/SillyTavern/SillyTavern-DiscordRichPresence-Server#readme",
     "dependencies": {
         "chalk": "^4.1.2",
         "discord-rpc": "^4.0.1",
@@ -31,10 +32,18 @@
         }
     },
     "devDependencies": {
-        "browserify": "^17.0.0",
+        "@eslint/js": "^9.17.0",
+        "@types/discord-rpc": "^4.0.8",
+        "@types/express": "^5.0.0",
         "bufferutil": "^4.0.8",
         "electron": "^28.0.0",
         "encoding": "^0.1.13",
-        "utf-8-validate": "^5.0.10"
+        "terser-webpack-plugin": "^5.3.11",
+        "ts-loader": "^9.5.1",
+        "typescript": "^5.7.2",
+        "typescript-eslint": "^8.18.2",
+        "utf-8-validate": "^5.0.10",
+        "webpack": "^5.97.1",
+        "webpack-cli": "^6.0.1"
     }
 }

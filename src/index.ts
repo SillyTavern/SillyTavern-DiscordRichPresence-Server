@@ -1,3 +1,8 @@
+import chalk from 'chalk';
+import rpc from 'discord-rpc';
+import { Router } from 'express';
+import config from './config.json';
+
 const MODULE = '[SillyTavern-DiscordRichPresence-Server]';
 const states = [
     'Constructing a waifu army',
@@ -10,12 +15,11 @@ const states = [
     // Add more states here
 ];
 
-let client;
+let client: rpc.Client;
 
 async function exit() {
     if (client) {
         try {
-            const chalk = require('chalk');
             console.log(chalk.green(MODULE), 'Shutting down Discord connection');
             await Promise.race([
                 client.destroy(),
@@ -29,14 +33,8 @@ async function exit() {
 
 /**
  * Initializes the plugin
- * @param {import('express').Router} router Express router
  */
-async function init(router) {
-    const rpc = require('discord-rpc');
-    const fs = require('fs');
-    const path = require('path');
-    const chalk = require('chalk');
-    const config = JSON.parse(fs.readFileSync(path.join(__dirname, 'config.json'), 'utf8'));
+async function init(router: Router) {
     let connected = false;
     console.log(chalk.green(MODULE), 'Plugin loaded!');
     await connectToDiscord();
@@ -75,7 +73,7 @@ async function init(router) {
         await client.login({ clientId: config.ClientID }).catch(console.error);
     }
 
-    async function setActivity(state) {
+    async function setActivity(state?: string) {
         try {
             // Try to connect if not connected.
             if (!connected) {
@@ -111,7 +109,7 @@ async function init(router) {
     }
 }
 
-module.exports = {
+export default {
     init,
     exit,
     info: {
